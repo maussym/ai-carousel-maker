@@ -1,6 +1,6 @@
 // Server-side Supabase client for Server Components, Route Handlers, and Server
 // Actions. Reads/writes the auth session from cookies and runs as the logged-in
-// user (RLS applies). Uses the anon key — NOT the service role key.
+// user (RLS applies). Uses the anon key - NOT the service role key.
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import type { Database } from '@/lib/database.types'

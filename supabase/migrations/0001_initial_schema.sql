@@ -1,12 +1,12 @@
 -- 0001_initial_schema.sql
--- AI Carousel Maker — initial schema (4 tables, per product brief §8).
+-- AI Carousel Maker - initial schema (4 tables, per product brief §8).
 -- Run via Supabase Dashboard → SQL Editor, or `supabase db push` with the CLI linked.
 
 -- =====================================================================
 -- TABLES
 -- =====================================================================
 
--- users — mirror of auth.users with app-specific fields.
+-- users - mirror of auth.users with app-specific fields.
 -- id references auth.users so the row is keyed to the Supabase Auth identity.
 create table public.users (
   id                 uuid primary key references auth.users (id) on delete cascade,
@@ -16,7 +16,7 @@ create table public.users (
   plan               text not null default 'free' check (plan in ('free', 'pro'))
 );
 
--- carousels — one row per generated carousel. slides_json is an array of {title, body}.
+-- carousels - one row per generated carousel. slides_json is an array of {title, body}.
 create table public.carousels (
   id          uuid primary key default gen_random_uuid(),
   user_id     uuid not null references public.users (id) on delete cascade,
@@ -27,7 +27,7 @@ create table public.carousels (
   created_at  timestamptz not null default now()
 );
 
--- usage — append-only log of generate/download actions, used for plan limits.
+-- usage - append-only log of generate/download actions, used for plan limits.
 create table public.usage (
   id         uuid primary key default gen_random_uuid(),
   user_id    uuid not null references public.users (id) on delete cascade,
@@ -35,7 +35,7 @@ create table public.usage (
   created_at timestamptz not null default now()
 );
 
--- anonymous_usage — per-IP daily counter for the anonymous (logged-out) limit.
+-- anonymous_usage - per-IP daily counter for the anonymous (logged-out) limit.
 create table public.anonymous_usage (
   ip_hash text not null,
   date    date not null,
@@ -106,7 +106,7 @@ create policy "Users can insert own usage"
 -- anonymous_usage: intentionally NO policies (server-only via service role).
 
 -- =====================================================================
--- AUTH TRIGGER — mirror new auth.users rows into public.users
+-- AUTH TRIGGER - mirror new auth.users rows into public.users
 -- =====================================================================
 -- Google OAuth (and any other provider) inserts into auth.users. This trigger
 -- mirrors that insert into public.users so the app always has a profile row.

@@ -29,7 +29,7 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // IMPORTANT: do not run code between createServerClient and getUser() — it
+  // IMPORTANT: do not run code between createServerClient and getUser() - it
   // refreshes the token, and a gap here can log users out at random.
   const {
     data: { user },

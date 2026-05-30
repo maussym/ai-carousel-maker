@@ -1,7 +1,7 @@
 // SERVER-ONLY admin client. Uses SUPABASE_SERVICE_ROLE_KEY, which BYPASSES RLS
 // and has full database access. NEVER import this from a 'use client' component
 // or anywhere that ships to the browser. Use it only in Route Handlers
-// (app/api/**) or Server Actions — e.g. writing the anonymous_usage table and
+// (app/api/**) or Server Actions - e.g. writing the anonymous_usage table and
 // enforcing plan limits.
 import { createClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/database.types'
