@@ -1,26 +1,36 @@
-import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
-import { logout } from './actions'
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import OrbsBackdrop from "@/components/orbs-backdrop";
+import Creator from "./creator";
+import { logout } from "./actions";
 
 export default async function AppPage() {
-  const supabase = await createClient()
+  const supabase = await createClient();
   const {
     data: { user },
-  } = await supabase.auth.getUser()
+  } = await supabase.auth.getUser();
 
-  // Middleware already guards /app, but re-check here as defense in depth.
-  if (!user) redirect('/login')
+  // Middleware already guards /app; re-check here as defense in depth.
+  if (!user) redirect("/login");
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 p-6">
-      <p className="text-sm text-gray-600">
-        Signed in as <span className="font-medium">{user.email}</span>
-      </p>
-      <form action={logout}>
-        <button className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50">
-          Logout
-        </button>
-      </form>
+    <main className="relative min-h-screen">
+      <OrbsBackdrop />
+
+      {/* Minimal app header (not the full landing navbar) */}
+      <header className="glass sticky top-4 z-50 mx-4 flex items-center justify-between rounded-2xl px-6 py-3">
+        <span className="font-bold tracking-tight text-white">Carousel</span>
+        <div className="flex items-center gap-4">
+          <span className="text-sm text-[#A1A1AA]">{user.email}</span>
+          <form action={logout}>
+            <button className="glass rounded-full px-4 py-1.5 text-sm text-white transition-colors hover:border-white/30">
+              Logout
+            </button>
+          </form>
+        </div>
+      </header>
+
+      <Creator />
     </main>
-  )
+  );
 }

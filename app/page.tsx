@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Backdrop from "@/components/backdrop";
+import OrbsBackdrop from "@/components/orbs-backdrop";
 import StackedPanels from "@/components/stacked-panels";
 
 const steps = [
@@ -46,7 +46,7 @@ const faqs = [
 export default function Home() {
   return (
     <main className="relative min-h-screen">
-      <Backdrop />
+      <OrbsBackdrop />
 
       {/* Sticky glass navbar — floats with margins so its glass edges read */}
       <header className="glass sticky top-4 z-50 mx-4 flex items-center justify-between rounded-2xl px-6 py-3">
